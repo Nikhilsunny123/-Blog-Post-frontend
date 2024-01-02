@@ -7,22 +7,7 @@ import Post from "../../components/Post";
 
 const HomePage = () => {
   const blogPosts = useSelector((state) => state.blog.posts);
-  const dispatch = useDispatch();
-  const { isLoading, isError, data } = useQuery(
-    ["posts"],
-    blogPostServices.getAllblogPostService,
-    {
-      onSuccess: (data) => {
-        dispatch(setPosts(data?.data.data));
-      },
-      onError: (error) => {
-        const responce = error;
-        console.log();
-        console.error(responce.message);
-      },
-    }
-  );
-  console.log(data);
+
   return (
     <div
       style={{

@@ -6,17 +6,21 @@ import * as yup from "yup";
 
 import { TextField, Button } from "@mui/material";
 
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import blogPostServices from "../../services/blogPostServices";
 import Alerts from "../../components/common/Alerts";
 
 const AddPost = () => {
-  const navigate = useNavigate();
-
+  
+  const queryClient = useQueryClient();
   const [errorMessage, setErrorMessage] = useState(null);
 
   // calling login api
   const mutation = useMutation(blogPostServices.createblogPostService, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries("posts");
+      console.log(data);
+    },
     // handling error if error
     onError: (error) => {
       const responce = error;

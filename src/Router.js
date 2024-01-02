@@ -8,9 +8,31 @@ import LoginPage from "./pages/Login/LoginPage";
 import AddPost from "./pages/addpost/AddPost";
 import EditPost from "./pages/editpost/EditPost";
 import DeletePost from "./pages/deletepost/DeletePost";
+import { useDispatch } from "react-redux";
+import { useQuery } from "react-query";
+import blogPostServices from "./services/blogPostServices";
+import { setPosts } from "./store/postsSlice/postSlice";
 
 const Router = () => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const { isLoading, isError, data } = useQuery(
+    ["posts"],
+    blogPostServices.getAllblogPostService,
+    {
+      onSuccess: (data) => {
+        dispatch(setPosts(data?.data.data));
+      },
+      onError: (error) => {
+        const responce = error;
+        console.log();
+        console.error(responce.message);
+      },
+    }
+  );
+  console.log(data);
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const checkIfUserIsAuthenticated = () => {
     if (localStorage.getItem("token")) {
