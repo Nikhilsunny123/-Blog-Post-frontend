@@ -6,24 +6,23 @@ import * as yup from "yup";
 
 import { TextField, Button } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import loginServices from "../../services/authServices";
+
 import Alerts from "../common/Alerts";
 import { useMutation } from "react-query";
+import { useDispatch } from "react-redux";
+import { IsLoginAction } from "../../store/authSlice/authSlice";
+import loginServices from "../../services/authServices";
 
 const RegistrationForm = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [errorMessage, setErrorMessage] = useState(null);
 
   // calling login api
-  const mutation = useMutation(loginServices.login, {
+  const mutation = useMutation(loginServices.register, {
     onSuccess: (data) => {
-      console.log("Login successfully:", data);
-      const { token, id } = data?.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("userId", id);
-
-      navigate("/cars/brands");
+      console.log("Register successfully:", data);
+      dispatch(IsLoginAction(false));
     },
     // handling error if error
     onError: (error) => {
@@ -73,7 +72,7 @@ const RegistrationForm = () => {
 
   return (
     <div className="login-container">
-      <h1 className="header">Welcome Back</h1>
+      <h1 className="header">Create new account</h1>
 
       <form
         onSubmit={(event) => {
@@ -126,7 +125,9 @@ const RegistrationForm = () => {
         </div>
       </form>
 
-      <Link to="/login">Already have an account</Link>
+      <Link onClick={() => dispatch(IsLoginAction(false))}>
+        Already have an account
+      </Link>
     </div>
   );
 };

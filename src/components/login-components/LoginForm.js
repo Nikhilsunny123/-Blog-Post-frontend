@@ -9,10 +9,12 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import loginServices from "../../services/authServices";
 import Alerts from "../common/Alerts";
 import { useMutation } from "react-query";
+import { useDispatch } from "react-redux";
+import { IsLoginAction } from "../../store/authSlice/authSlice";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState(null);
 
   // calling login api
@@ -126,8 +128,7 @@ const LoginForm = () => {
           </Button>
         </div>
       </form>
-
-      <Link to="/signup">New account</Link>
+      <Link onClick={() => dispatch(IsLoginAction(true))}>New account</Link>
     </div>
   );
 };

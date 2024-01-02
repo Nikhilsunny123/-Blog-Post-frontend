@@ -55,7 +55,6 @@ const Router = () => {
   return !isAuthenticated ? (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<RegistrationForm />} />
     </Routes>
   ) : (
     <Routes>
