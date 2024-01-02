@@ -2,13 +2,13 @@
 import { Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
 const LoginForm = () => {
   // Yup schema for LoginForm
   const schema = Yup.object().shape({
-    username: Yup.string().required("Username is required"),
+    email: Yup.string().required("email is required"),
     password: Yup.string().required("Password is required"),
   });
 
@@ -25,9 +25,19 @@ const LoginForm = () => {
     <div>
       <Typography>Login</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Username:</label>
-        <input type="text" name="username" ref={register} />
-        {errors.username && <p>{errors.username.message}</p>}
+        <Grid item xs={12}>
+          <TextField
+            variant="outlined"
+            fullWidth
+            id="email"
+            label="Email"
+            type="email"
+            name="email"
+            inputRef={register}
+            error={!!errors?.email}
+            helperText={errors.email?.message}
+          />
+        </Grid>
 
         <Grid item xs={12}>
           <TextField

@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "../../components/login=components/LoginForm";
+import LoginForm from "../../components/login-components/LoginForm";
 import { Typography } from "@mui/material";
 
 const LoginPage = () => {

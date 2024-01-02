@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
-import LoginForm from "./components/login=components/LoginForm";
+import LoginForm from "./components/login-components/LoginForm";
 
 const Router = () => {
   const navigate = useNavigate();
