@@ -5,26 +5,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { TextField, Button } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import loginServices from "../../services/authServices";
-import Alerts from "../common/Alerts";
-import { useMutation } from "react-query";
 
-const RegistrationForm = () => {
+import { useMutation } from "react-query";
+import blogPostServices from "../../services/blogPostServices";
+import Alerts from "../../components/common/Alerts";
+
+const AddPost = () => {
   const navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState(null);
 
   // calling login api
-  const mutation = useMutation(loginServices.login, {
-    onSuccess: (data) => {
-      console.log("Login successfully:", data);
-      const { token, id } = data?.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("userId", id);
-
-      navigate("/cars/brands");
-    },
+  const mutation = useMutation(blogPostServices.createblogPostService, {
     // handling error if error
     onError: (error) => {
       const responce = error;
@@ -40,14 +32,12 @@ const RegistrationForm = () => {
     },
   });
 
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
-
   // validation  using yup
 
   const schema = yup
     .object({
-      email: yup.string().email().required("Please enter your email"),
-      password: yup.string().required("Please enter your password"),
+      postName: yup.string().required("Please enter the post name"),
+      postMessage: yup.string().required("Please enter the post message"),
     })
     .required();
 
@@ -58,22 +48,21 @@ const RegistrationForm = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      postName: "",
+      postMessage: "",
     },
     resolver: yupResolver(schema),
   });
 
   //handle the login submit
   const onSubmit = (data) => {
-    setIsLoggingIn(true);
     mutation.mutate(data);
-    setIsLoggingIn(false);
+    console.log(data);
   };
 
   return (
     <div className="login-container">
-      <h1 className="header">Welcome Back</h1>
+      <h1 className="header">Add a New Blog Post</h1>
 
       <form
         onSubmit={(event) => {
@@ -85,30 +74,26 @@ const RegistrationForm = () => {
           {mutation.isError && <Alerts name={errorMessage} />}
           <div>
             <TextField
-              label="You Email"
-              type="email"
+              label="Post Name"
               fullWidth
               className="textbox"
-              {...register("email")}
+              {...register("postName")}
             />
-            {errors.password?.message ? (
-              <p className="error-message">{errors.email?.message}</p>
-            ) : (
-              ""
+            {errors.postName?.message && (
+              <p className="error-message">{errors.postName?.message}</p>
             )}
           </div>
           <div>
             <TextField
-              label="You Password"
+              label="Post Message"
               className="textbox"
-              type="password"
+              multiline
+              rows={4}
               fullWidth
-              {...register("password")}
+              {...register("postMessage")}
             />
-            {errors.password?.message ? (
-              <p className="error-message">{errors.password?.message}</p>
-            ) : (
-              ""
+            {errors.postMessage?.message && (
+              <p className="error-message">{errors.postMessage?.message}</p>
             )}
           </div>
 
@@ -118,17 +103,13 @@ const RegistrationForm = () => {
             variant="contained"
             className="log-in-button"
             fullWidth
-            endIcon={<ArrowForwardIcon />}
-            disabled={isLoggingIn}
           >
-            Sign up
+            Add Blog Post
           </Button>
         </div>
       </form>
-
-      <Link to="/login">Already have an account</Link>
     </div>
   );
 };
 
-export default RegistrationForm;
+export default AddPost;

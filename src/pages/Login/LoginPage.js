@@ -1,7 +1,7 @@
 import React from "react";
 import LoginForm from "../../components/login-components/LoginForm";
 import { Typography } from "@mui/material";
-
+import "./login.css";
 const LoginPage = () => {
   return (
     <div>

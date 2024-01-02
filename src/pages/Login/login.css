@@ -1,0 +1,47 @@
+.login-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff8dd;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container .header {
+  font-size: 35px;
+
+  text-align: center;
+  margin: 10px;
+}
+
+@media (max-width: 768px) {
+  .login-container .header {
+    font-size: 25px;
+  }
+}
+
+.login-container .form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.login-container .form-container .textbox {
+  width: 300px;
+}
+
+.login-container .form-container .log-in-button {
+  border-radius: 30;
+
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 300px;
+}
+
+.login-container .form-container .log-in-button:hover {
+  background-color: #18318c;
+}

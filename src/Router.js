@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import LoginForm from "./components/login-components/LoginForm";
+import HomePage from "./pages/home/HomePage";
+import RegistrationForm from "./components/login-components/RegistrationForm";
+import LoginPage from "./pages/Login/LoginPage";
+import AddPost from "./pages/addpost/AddPost";
+import EditPost from "./pages/editpost/EditPost";
+import DeletePost from "./pages/deletepost/DeletePost";
 
 const Router = () => {
   const navigate = useNavigate();
@@ -26,19 +32,16 @@ const Router = () => {
   }, [navigate]);
   return !isAuthenticated ? (
     <Routes>
-      <Route path="/login" element={<LoginForm />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<RegistrationForm />} />
     </Routes>
   ) : (
     <Routes>
       <Route path="/" element={<Layout />}>
-        {/* <Route path="services" element={<CarServices />} />
-        <Route path="services/:serviceid" element={<CarSubServices />} />
-        <Route path="appointments" element={<Appointments />} />
-        <Route path="locations" element={<Locations />} />
-        <Route path="settings" element={<UserSettings />} />
-        <Route path="users" element={<Users />} />
-        <Route path="additionalcharges" element={<AdditionalCharges />} />
-        <Route path="vouchercode" element={<VoucherCode />} /> */}
+        <Route path="home" element={<HomePage />} />
+        <Route path="addpost" element={<AddPost />} />
+        <Route path="editpost" element={<EditPost />} />
+        <Route path="deletepost" element={<DeletePost />} />
       </Route>
     </Routes>
   );
