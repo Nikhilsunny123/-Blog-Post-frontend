@@ -1,7 +1,8 @@
 // LoginForm.jsx
-import { Typography } from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from "yup";
 
 const LoginForm = () => {
@@ -12,7 +13,7 @@ const LoginForm = () => {
   });
 
   const { register, handleSubmit, errors } = useForm({
-    resolver: YupResolver(schema), // Assuming you have defined a Yup schema
+    resolver: yupResolver(schema), // Assuming you have defined a Yup schema
   });
 
   const onSubmit = (data) => {
