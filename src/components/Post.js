@@ -14,7 +14,7 @@ export default function Post({ data }) {
             {data.postName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {data.postName}
+            {data.postMessage}
           </Typography>
         </CardContent>
       </CardActionArea>
